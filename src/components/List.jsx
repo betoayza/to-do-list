@@ -7,20 +7,36 @@ const emptyTask = {
   priority: "",
 };
 
-export const List = ({ list }) => {
-  const [tasks, setTasks] = useState(list.title);
-  const [listTitle, setListTitle] = useState(list.tasks);
+export const List = ({ list1 }) => {
+  // const [tasks, setTasks] = useState(list.tasks);
+  const [list, setList] = useState(list1);
+  // const [listTitle, setListTitle] = useState(list.title);
+
+  let arrColors = [
+    "#ffa07a",
+    "#ff6347",
+    "#d0ff14",
+    "#ffcff1",
+    "#7df9ff ",
+    "#ffd700",
+  ];
+
+  const randomColor = () => {
+    let colorChosen = arrColors[Math.floor(Math.random() * 6)];
+    return colorChosen;
+  };
 
   const handleAddTask = () => {
-    setTasks([...tasks, emptyTask]);
+    setList({ ...list, tasks: [...list.tasks, emptyTask] });
   };
 
   const handleDeleteTask = (taskID) => {
-    setTasks(
-      tasks.filter((task) => {
+    setList({
+      ...list,
+      tasks: list.tasks.filter((task) => {
         return task.id !== taskID;
-      })
-    );
+      }),
+    });
   };
 
   const handleChangeListTitle = (e) => {
@@ -28,7 +44,10 @@ export const List = ({ list }) => {
   };
 
   return (
-    <div className="col">
+    <div
+      className="col border border-2 border-dark rounded m-2"
+      style={{ backgroundColor: randomColor() }}
+    >
       <div className="mb-3">
         <input
           type="text"
@@ -37,19 +56,19 @@ export const List = ({ list }) => {
           id="listTitle"
           aria-describedby="helpId"
           placeholder="List title..."
-          value={listTitle}
+          value={list.title}
           onChange={handleChangeListTitle}
         />
       </div>
       <hr />
-      <button type="button" className="btn btn-primary" onClick={handleAddTask}>
+      <button type="button" className="btn btn-success" onClick={handleAddTask}>
         Add
       </button>
 
       <hr />
 
-      {tasks.length &&
-        tasks.map((task, index) => {
+      {list.tasks.length &&
+        list.tasks.map((task, index) => {
           return (
             <Task key={index} task={task} handleDeleteTask={handleDeleteTask} />
           );
