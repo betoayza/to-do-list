@@ -56,9 +56,9 @@ export const ToDoListApp = () => {
       <button className="btn btn-danger" onClick={handleCleanAll}>
         Clean All
       </button>
-      <div className={"container border mt-3"}>
+      <div className={"container mt-3"}>
         <div
-          className={"row row-cols-auto text-center border"}
+          className={"row row-cols-auto text-center"}
           style={{ display: "flex", justifyContent: "center" }}
         >
           {lists.length ? (
@@ -74,8 +74,8 @@ export const ToDoListApp = () => {
               );
             })
           ) : (
-            <div className={"text-center w-100 border"}>
-              <h2 style={{ color: "#8b0000" }}>No lists yet :(</h2>
+            <div className={"text-center w-100"}>
+              <h2 style={{ color: "#ffd700" }}>No lists yet :(</h2>
             </div>
           )}
         </div>
