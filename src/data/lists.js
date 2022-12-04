@@ -4,17 +4,17 @@ export let dbLists = [
     title: "List1",
     tasks: [
       {
-        id: Date.now(),
+        id: 1,
         message: "Clean closet",
         priority: "Urgent",
       },
       {
-        id: Date.now(),
+        id: 2,
         message: "Dog walking",
         priority: "Pendient",
       },
       {
-        id: Date.now(),
+        id: 3,
         message: "Do shopping",
         priority: "Pendient",
       },

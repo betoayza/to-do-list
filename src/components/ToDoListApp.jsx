@@ -3,7 +3,7 @@ import { dbLists } from "../data/lists";
 import { List } from "./List";
 
 const newList = {
-  id: Date.now(),
+  id: dbLists.length + 1,
   title: "",
   tasks: [],
 };
