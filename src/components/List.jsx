@@ -4,22 +4,24 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const List = ({ list1, handleDeleteList }) => {
   const [list, setList] = useState(list1);
-  const [listTitle, setListTitle] = useState(list.title);
-
-  const emptyTask = {
-    id: list.tasks.length + 1,
-    message: "",
-  };
+  const [listTitle, setListTitle] = useState("Title...");
 
   const handleAddTask = () => {
-    setList({ ...list, tasks: [...list.tasks, emptyTask] });
+    const newTask = {
+      id: Date.now(),
+      message: "",
+      isDeleted: false,
+    };
+
+    setList({ ...list, tasks: [...list.tasks, newTask] });
   };
 
   const handleDeleteTask = (taskID) => {
     setList({
       ...list,
-      tasks: list.tasks.filter((task) => {
-        return task.id !== taskID;
+      tasks: list.tasks.map((task) => {
+        task.id === taskID && (task.isDeleted = true);
+        return task;
       }),
     });
   };
@@ -52,6 +54,7 @@ export const List = ({ list1, handleDeleteList }) => {
       </button>
       <button
         className="btn btn-danger"
+        type="button"
         onClick={() => handleDeleteList(list.id)}
       >
         <i className="bi-trash"></i>
@@ -62,11 +65,13 @@ export const List = ({ list1, handleDeleteList }) => {
       {list.tasks.length
         ? list.tasks.map((task, index) => {
             return (
-              <Task
-                key={index}
-                task={task}
-                handleDeleteTask={handleDeleteTask}
-              />
+              !task.isDeleted && (
+                <Task
+                  key={index}
+                  task={task}
+                  handleDeleteTask={handleDeleteTask}
+                />
+              )
             );
           })
         : ""}

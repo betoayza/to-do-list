@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbLists } from "../data/lists";
+//import { dbLists } from "../data/lists";
 import { List } from "./List";
 
 let arrColors = [
@@ -17,13 +17,14 @@ const randomColor = () => {
 };
 
 export const ToDoListApp = () => {
-  const [lists, setLists] = useState(dbLists);
+  const [lists, setLists] = useState([]);
 
   let newList = {
     id: lists.length + 1,
     title: "",
     tasks: [],
     color: randomColor(),
+    isDeleted: false
   };
 
   const handleAddList = () => {
@@ -31,14 +32,13 @@ export const ToDoListApp = () => {
   };
 
   const handleDeleteList = (listID) => {
-    console.log(listID);
+    console.log(listID);   
 
-    setLists(
-      lists.filter((list) => {
-        //if (list.id !== listID) return list;
-        return list.id != listID;
-      })
-    );
+    setLists(lists.map((list) => {
+      console.log(list.id, " | ", listID);
+      list.id === listID && (list.isDeleted = true)
+      return list;
+    }));
   };
 
   const handleCleanAll = () => {
@@ -46,7 +46,7 @@ export const ToDoListApp = () => {
   };
 
   return (
-    <div className={"h-auto"}>
+    <div className={"h-auto"}>     
       <h1 style={{ color: "#00ff00" }}>
         <span style={{ color: "#ff0000" }}>{lists.length}</span> Lists
       </h1>
@@ -56,7 +56,7 @@ export const ToDoListApp = () => {
       <button className="btn btn-danger" onClick={handleCleanAll}>
         Clean All
       </button>
-      <div className={"container"}>
+      <div className={"container border mt-3"}>
         <div
           className={"row row-cols-auto text-center border"}
           style={{ display: "flex", justifyContent: "center" }}
@@ -64,11 +64,13 @@ export const ToDoListApp = () => {
           {lists.length ? (
             lists.map((list, index) => {
               return (
-                <List
-                  key={index}
-                  list1={list}
-                  handleDeleteList={handleDeleteList}
-                />
+                !list.isDeleted && (
+                  <List
+                    key={index}
+                    list1={list}
+                    handleDeleteList={handleDeleteList}
+                  />
+                )
               );
             })
           ) : (

@@ -14,19 +14,19 @@ const randomColor = () => {
 
 export let dbLists = [
   {
-    id: 1,
+    id: Date.now(),
     title: "List1",
     tasks: [
       {
-        id: 1,
+        id: Date.now(),
         message: "Clean closet",
       },
       {
-        id: 2,
+        id: Date.now(),
         message: "Dog walking",
       },
       {
-        id: 3,
+        id: Date.now(),
         message: "Do shopping",
       },
     ],
