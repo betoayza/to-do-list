@@ -38,10 +38,10 @@ export const Task = ({ task, handleDeleteTask }) => {
       </div>
       <button
         type="button"
-        className="btn btn-danger"
+        className="btn btn-danger h-50"
         onClick={() => handleDeleteTask(task.id)}
       >
-        Delete
+        <i className="bi-dash-lg"></i>
       </button>
     </div>
   );
