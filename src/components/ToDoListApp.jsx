@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { dbLists } from "../data/lists";
 import { List } from "./List";
 
 let arrColors = [
@@ -24,7 +23,7 @@ export const ToDoListApp = () => {
     title: "",
     tasks: [],
     color: randomColor(),
-    isDeleted: false
+    isDeleted: false,
   };
 
   const handleAddList = () => {
@@ -32,36 +31,56 @@ export const ToDoListApp = () => {
   };
 
   const handleDeleteList = (listID) => {
-    console.log(listID);   
+    console.log(listID);
 
-    setLists(lists.map((list) => {
-      console.log(list.id, " | ", listID);
-      list.id === listID && (list.isDeleted = true)
-      return list;
-    }));
+    setLists(
+      lists.map((list) => {
+        console.log(list.id, " | ", listID);
+        if (list.id === listID) {
+          list.isDeleted = true;
+        }
+        return list;
+      })
+    );
   };
 
   const handleCleanAll = () => {
-    setLists([]);
+    setLists(
+      lists.map((list) => {
+        list.isDeleted = true;
+        return list;
+      })
+    );
   };
 
+  console.log(lists);
+
   return (
-    <div className={"h-auto"}>     
+    <div className={"h-auto"}>
       <h1 style={{ color: "#00ff00" }}>
-        <span style={{ color: "#ff0000" }}>{lists.length}</span> Lists
+        <span style={{ color: "#ff0000" }}>
+          {lists.filter((list) => !list.isDeleted).length}
+        </span>{" "}
+        Lists
       </h1>
       <button className="btn btn-primary" onClick={handleAddList}>
         <i className="bi-plus-lg"></i>
       </button>
-      <button className="btn btn-danger" onClick={handleCleanAll}>
-        Clean All
-      </button>
+      {lists.filter((list) => !list.isDeleted).length > 0 && (
+        <button className="btn btn-danger" onClick={handleCleanAll}>
+          Clean All
+        </button>
+      )}
       <div className={"container mt-3"}>
         <div
           className={"row row-cols-auto text-center"}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          {lists.length ? (
+          {lists.every((el) => el.isDeleted === true) ? (
+            <div className={"text-center w-100"}>
+              <h2 style={{ color: "#ffd700" }}>No lists yet :(</h2>
+            </div>
+          ) : (
             lists.map((list, index) => {
               return (
                 !list.isDeleted && (
@@ -73,10 +92,6 @@ export const ToDoListApp = () => {
                 )
               );
             })
-          ) : (
-            <div className={"text-center w-100"}>
-              <h2 style={{ color: "#ffd700" }}>No lists yet :(</h2>
-            </div>
           )}
         </div>
       </div>
