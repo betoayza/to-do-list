@@ -31,7 +31,7 @@ export const ToDoListApp = () => {
   };
 
   const handleDeleteList = (listID) => {
-    console.log(listID);
+    // console.log(listID);
 
     setLists(
       lists.map((list) => {
@@ -53,7 +53,7 @@ export const ToDoListApp = () => {
     );
   };
 
-  console.log(lists);
+  // console.log(lists);
 
   return (
     <div className={"h-auto"}>

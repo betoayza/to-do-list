@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 
-//Pinta una tarea vacia o ya creada
 export const Task = ({ task, handleDeleteTask }) => {
   const [isChecked, setIsChecked] = useState(task.isCheked);
   const [text, setText] = useState(task.message);
